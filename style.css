@@ -1,0 +1,9 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: #e3f2fd;
+}
+
+.weather-card {
+    margin-top: 100px;
+}
