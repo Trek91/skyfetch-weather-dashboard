@@ -7,3 +7,21 @@ body {
 .weather-card {
     margin-top: 100px;
 }
+.search-box {
+    margin-top: 50px;
+}
+
+#cityInput {
+    padding: 8px;
+    width: 200px;
+}
+
+#searchBtn {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#message {
+    margin-top: 20px;
+    color: red;
+}
