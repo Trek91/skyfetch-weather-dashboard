@@ -25,3 +25,29 @@ body {
     margin-top: 20px;
     color: red;
 }
+
+.forecast-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.forecast-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.forecast-card:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .forecast-container {
+        grid-template-columns: 1fr;
+    }
+}
