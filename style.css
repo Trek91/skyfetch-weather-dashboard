@@ -51,3 +51,12 @@ body {
         grid-template-columns: 1fr;
     }
 }
+.recent-section {
+    margin-top: 20px;
+}
+
+.recent-section button {
+    margin: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
+}

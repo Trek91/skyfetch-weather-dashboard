@@ -13,10 +13,18 @@ function WeatherApp() {
     this.forecastContainer = document.createElement("div");
     this.forecastContainer.className = "forecast-container";
     document.querySelector(".container").appendChild(this.forecastContainer);
+
+    // 🔥 PART 4 — Local Storage Setup
+    this.recentSearches = JSON.parse(localStorage.getItem("recentCities")) || [];
+
+    this.recentContainer = document.getElementById("recentContainer");
+    this.recentContainer.className = "recent-container";
+    document.querySelector(".container").appendChild(this.recentContainer);
 }
 
 WeatherApp.prototype.init = function () {
     this.showWelcome();
+    this.loadRecentSearches();
 
     this.searchBtn.addEventListener("click", this.handleSearch.bind(this));
 
@@ -60,6 +68,9 @@ WeatherApp.prototype.getWeather = async function (city) {
 
         const processedForecast = this.processForecastData(forecastRes.data.list);
         this.displayForecast(processedForecast);
+
+        this.saveToLocalStorage(city);
+        this.loadRecentSearches();
 
         this.messageElement.textContent = "";
 
@@ -106,6 +117,42 @@ WeatherApp.prototype.displayForecast = function (forecastData) {
         `;
 
         this.forecastContainer.appendChild(card);
+    });
+};
+
+WeatherApp.prototype.saveToLocalStorage = function (city) {
+
+    city = city.toLowerCase();
+
+    // Remove if already exists
+    this.recentSearches = this.recentSearches.filter(c => c !== city);
+
+    // Add to beginning
+    this.recentSearches.unshift(city);
+
+    // Limit to 5 cities
+    if (this.recentSearches.length > 5) {
+        this.recentSearches.pop();
+    }
+
+    localStorage.setItem("recentCities", JSON.stringify(this.recentSearches));
+};
+
+WeatherApp.prototype.loadRecentSearches = function () {
+
+    this.recentContainer.innerHTML = "<h3>Recent Searches</h3>";
+
+    this.recentSearches.forEach(city => {
+
+        const btn = document.createElement("button");
+        btn.className = "recent-btn";
+        btn.textContent = city;
+
+        btn.addEventListener("click", () => {
+            this.getWeather(city);
+        });
+
+        this.recentContainer.appendChild(btn);
     });
 };
 
